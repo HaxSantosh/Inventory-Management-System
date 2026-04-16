@@ -38,7 +38,15 @@ namespace InventoryApi.Controllers
             await _context.SaveChangesAsync();
             return NoContent();
         }
-
+        [HttpsPut("{id}")]
+        public async Task<IActionResult> Put(int id, Category updatedCategory)
+        {
+            var data = await _context.Categories.FindAsync(id);
+            if(data == null) return NotFound();
+            data.Name = updatedCategory.Name;
+            await _context.SaveChangesAsync();
+            return NoContent();
+        }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
@@ -49,7 +57,6 @@ namespace InventoryApi.Controllers
             await _context.SaveChangesAsync();
             return NoContent(); 
         }
-
-
+        
     }
 }

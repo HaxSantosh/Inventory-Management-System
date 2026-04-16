@@ -41,7 +41,7 @@ namespace InventoryApi.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("ImagesJson")
+                    b.Property<string>("Images")
                         .IsRequired()
                         .HasColumnType("TEXT");
 

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InventoryApi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260415113516_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20260416040324_FixImagesComparer")]
+    partial class FixImagesComparer
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -44,7 +44,7 @@ namespace InventoryApi.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("ImagesJson")
+                    b.Property<string>("Images")
                         .IsRequired()
                         .HasColumnType("TEXT");
 

@@ -18,7 +18,18 @@ namespace InventoryApi.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var data = await _context.Products.Include(p => p.Category).ToListAsync();
+            var baseUrl = $"{Request.Scheme}://{Request.Host}";
+            var data = await _context.Products
+                .Include(p => p.Category)
+                .ToListAsync(); // ✅ FIRST get data from DB
+
+            foreach (var p in data)
+            {
+                if (p.Images != null && p.Images.Any())
+                {
+                    p.Images = p.Images.Select(img => $"{baseUrl}{img}").ToList();
+                }
+            }
             return Ok(data);
         }
         [HttpGet("{id}")]
@@ -42,7 +53,7 @@ namespace InventoryApi.Controllers
             product.Name = updatedProduct.Name;
             product.Quantity = updatedProduct.Quantity;
             product.Price = updatedProduct.Price;
-            product.ImagesJson = updatedProduct.ImagesJson;
+            product.Images = updatedProduct.Images;
             product.CategoryId = updatedProduct.CategoryId;
             await _context.SaveChangesAsync();
             return NoContent();

@@ -21,15 +21,7 @@ namespace InventoryApi.Models
         [Range(1, 1000000, ErrorMessage = "Price must be greater than 0")]
         public decimal Price { get; set; }
 
-         public string ImagesJson { get; set; } = "[]";
-
-        // Not mapped (helper property)
-        [NotMapped]
-        public List<string> Images
-        {
-            get => string.IsNullOrEmpty(ImagesJson) ? new List<string>() : JsonSerializer.Deserialize<List<string>>(ImagesJson)!;
-            set => ImagesJson = JsonSerializer.Serialize(value);
-        }
+        public List<string> Images { get; set; } = new();
 
         [Required(ErrorMessage = "Category is required")]
         [ForeignKey("Category")]
