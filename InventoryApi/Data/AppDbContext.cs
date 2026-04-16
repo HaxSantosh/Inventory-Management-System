@@ -21,7 +21,7 @@ namespace InventoryApi.Data
                 .HasForeignKey(p => p.CategoryId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            // ✅ FIX: JSON conversion + comparer
+            // JSON conversion + comparer
             modelBuilder.Entity<Product>()
                 .Property(p => p.Images)
                 .HasConversion(
