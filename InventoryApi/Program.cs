@@ -11,7 +11,9 @@ builder.Services.AddControllers(); // Register Controllers (required for API end
 
 var app = builder.Build();
 
-
+app.UseCors(policy =>
+    policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+    
 app.MapGet("/", () => Results.Ok(new { status = "API is running", time = DateTime.UtcNow })); // Health Check Endpoint
 
 app.UseHttpsRedirection();

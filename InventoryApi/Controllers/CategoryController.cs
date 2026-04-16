@@ -19,7 +19,7 @@ namespace InventoryApi.Controllers
         {
             return Ok(await _context.Categories.ToListAsync());
         }
-
+        
         [HttpPost]
         public async Task<IActionResult> Post(Category category)
         {
@@ -28,6 +28,28 @@ namespace InventoryApi.Controllers
 
             return Ok(category);
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put(int id, Category category)
+        {
+            var data = await _context.Categories.FindAsync(id);
+            if(data == null) return NotFound();
+            data.Name = category.Name;
+            await _context.SaveChangesAsync();
+            return NoContent();
+        }
+
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var data = await _context.Categories.FindAsync(id);
+            if(data == null) return NotFound();
+            _context.Categories.Remove(data);
+            await _context.SaveChangesAsync();
+            return NoContent(); 
+        }
+
 
     }
 }
