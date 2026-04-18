@@ -30,3 +30,14 @@ export const updateProduct = async (id: number, data: Partial<Product>) : Promis
 export const deleteProduct = async (id: number) : Promise<void> => {
   await axios.delete(`${BASE_URL}/product/${id}`);
 };
+
+
+export const uploadProductImages = async (files: File[]) : Promise<string[]> => {
+  if (!files.length) return [];
+  const formData = new FormData();
+  files.forEach((f) => formData.append("files", f));
+  const res = await axios.post(`${BASE_URL}/upload`, formData, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
+  return res.data;
+};
