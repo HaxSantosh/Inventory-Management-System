@@ -30,15 +30,6 @@ namespace InventoryApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, Category category)
-        {
-            var data = await _context.Categories.FindAsync(id);
-            if(data == null) return NotFound();
-            data.Name = category.Name;
-            await _context.SaveChangesAsync();
-            return NoContent();
-        }
-        [HttpsPut("{id}")]
         public async Task<IActionResult> Put(int id, Category updatedCategory)
         {
             var data = await _context.Categories.FindAsync(id);
@@ -57,6 +48,11 @@ namespace InventoryApi.Controllers
             await _context.SaveChangesAsync();
             return NoContent(); 
         }
-        
+        [HttpGet("count")]
+        public async Task<IActionResult> Count()
+        {
+            var count = await _context.Categories.CountAsync();
+            return Ok(count);
+        }
     }
 }

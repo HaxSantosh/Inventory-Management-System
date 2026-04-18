@@ -68,5 +68,12 @@ namespace InventoryApi.Controllers
             return NoContent();
         }
         
+        [HttpGet("count")]
+        public async Task<IActionResult> Count()
+        {
+            var count = await _context.Products.CountAsync();
+            return Ok(count);
+        }
+        
     }
 }
